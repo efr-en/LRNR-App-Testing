@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import QuizQuestions from "./QuizQuestions";
-import QuizResults from "./QuizResults";
+// import QuizQuestions from "./QuizQuestions";
+// import QuizResults from "./QuizResults";
 
 const Quiz = () => {
   const [formData, setFormData] = useState({
@@ -27,8 +27,6 @@ const Quiz = () => {
     e.preventDefault();
     console.log("Form submitted:", formData);
 
-    // Here you would typically fetch or generate questions based on the form data
-    // For this example, we'll create some placeholder questions
     const dummyQuestions = Array(parseInt(formData.numberOfQuestions))
       .fill(null)
       .map((_, index) => ({
@@ -93,7 +91,8 @@ const Quiz = () => {
             name="topic"
             value={formData.topic}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500   focus:border-teal-500
+              p-2"
             required
           >
             <option value="" disabled>
