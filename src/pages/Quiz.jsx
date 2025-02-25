@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import QuizQuestions from "./QuizQuestions";
-// import QuizResults from "./QuizResults";
 
 const Quiz = () => {
   const [formData, setFormData] = useState({
@@ -9,11 +7,6 @@ const Quiz = () => {
     numberOfQuestions: "5",
     styleOfQuestions: "normal",
   });
-
-  const [quizStarted, setQuizStarted] = useState(false);
-  const [quizCompleted, setQuizCompleted] = useState(false);
-  const [userAnswers, setUserAnswers] = useState([]);
-  const [generatedQuestions, setGeneratedQuestions] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,52 +19,7 @@ const Quiz = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-
-    const dummyQuestions = Array(parseInt(formData.numberOfQuestions))
-      .fill(null)
-      .map((_, index) => ({
-        id: index,
-        question: `Sample question ${index + 1} about ${formData.topic} (${
-          formData.expertise
-        } level)`,
-        options: ["Option A", "Option B", "Option C", "Option D"],
-        correctAnswer: "Option A",
-      }));
-
-    setGeneratedQuestions(dummyQuestions);
-    setQuizStarted(true);
   };
-
-  const handleQuizComplete = (answers) => {
-    setUserAnswers(answers);
-    setQuizCompleted(true);
-  };
-
-  const handleRetakeQuiz = () => {
-    setQuizStarted(false);
-    setQuizCompleted(false);
-    setUserAnswers([]);
-  };
-
-  if (quizCompleted) {
-    return (
-      <QuizResults
-        questions={generatedQuestions}
-        userAnswers={userAnswers}
-        quizSettings={formData}
-        onRetake={handleRetakeQuiz}
-      />
-    );
-  }
-
-  if (quizStarted) {
-    return (
-      <QuizQuestions
-        questions={generatedQuestions}
-        onComplete={handleQuizComplete}
-      />
-    );
-  }
 
   return (
     <div className="max-w-2xl mx-auto p-6">
@@ -91,8 +39,7 @@ const Quiz = () => {
             name="topic"
             value={formData.topic}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500   focus:border-teal-500
-              p-2"
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
             required
           >
             <option value="" disabled>
