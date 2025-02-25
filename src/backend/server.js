@@ -3,11 +3,13 @@ import cors from 'cors';
 import { config } from 'dotenv';
 import OpenAI from 'openai';
 
+// Load environment variables
 config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Initialize OpenAI API
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
@@ -16,19 +18,20 @@ app.use(cors());
 app.use(express.json())
 
 // Prompt for questions generation
-const buildQuizPrompt = (topic, expertise, count, style ) => {
-    return `Generate ${count} quiz questions on ${topic} at a ${expertize} difficulty level. Ensure 
-    that the questions are straightforward and reflect the speaking style of ${style}. Do 
+// Now accepts "numberOfQuestions" and "styleOfQuestions" to match the front-end 
+const buildQuizPrompt = (topic, expertise, numberOfQuestions, styleOfQuestions ) => {
+    return `Generate ${numberOfQuestions} quiz questions on ${topic} at a ${expertise} difficulty level. Ensure 
+    that the questions are straightforward and reflect the speaking style of ${styleOfQuestions}. Do 
     not include the answers. Format the output as a JSON array of question strings.`;
 };
 
 app.get('/api/generate-questions', async (req, res) => {
-    const { topic, expertise, count, style } = req.query;
-    const prompt = buildQuizPrompt(topic, expertise, count, style);
+    const { topic, expertise, numberOfQuestions, styleOfQuestions } = req.query;
+    const prompt = buildQuizPrompt(topic, expertise, numberOfQuestions, styleOfQuestions);
 
     try {
         const response = await openai.chat.completions.create({
-            model: 'gpt-4o', // Choose Model soon
+            model: 'gpt-4o', // Current Model Used
             messages: [{ role: 'user', content: prompt }],
         });
 
@@ -54,7 +57,7 @@ app.get('/api/evaluate-answer', async (req, res) => {
 
     try {
         const response = await openai.chat.completions.create({
-            model: 'gpt-4o', // Choose Model soon
+            model: 'gpt-4o', // Current Model Used
             messages: [{ role: 'user', content: prompt }],
         });
 
