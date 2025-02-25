@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 
 export default function AccountPage() {
@@ -72,3 +73,6 @@ export default function AccountPage() {
     </div>
   );
 }
+=======
+// //Cierra will build this page
+>>>>>>> dev
