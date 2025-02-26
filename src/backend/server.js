@@ -64,17 +64,18 @@ app.post('/api/generate-questions', async (req, res) => {
 });
 
 const buildEvaluationPrompt = (question, answer) => {
-    return `You are a teacher evaluating a student's response. 
-    The question is: "${question}".
-    The student's answer is: "${answer}".
-    Evaluate the answer as "Correct", "Incorrect", or "Partially Correct" using a percentage scale (for example, "Correct, 85%"). 
-    Any answer below 30% is "Incorrect", between 31% and 79% is "Partially Correct", and 80% or above is "Correct".
-    Provide a brief explanation for your evaluation.
-    Output ONLY a JSON object with exactly two keys: "evaluation" and "explanation". 
-    For example:
-    {"evaluation": "Correct, 85%", "explanation": "Your answer was correct because..."}
-    Do not include any extra text or markdown formatting.`;
-};
+    return `You are an experienced teacher evaluating a student's answer.
+    Question: "${question}"
+    Student's Answer: "${answer}"
+    Please evaluate the student's answer as follows:
+    1. Determine if the answer is "Correct", "Incorrect", or "Partially Correct".
+    2. Assign a percentage score to indicate how correct the answer is (e.g., "Correct, 85%").
+    3. Provide a detailed explanation outlining why the answer received that evaluation.
+    Output ONLY a JSON object with exactly two keys: "evaluation" and "explanation".
+    Do not include any additional text, markdown, or commentary.
+    Example:
+    {"evaluation": "Partially Correct, 65%", "explanation": "The answer covers some key points but misses important details such as X and Y."}`;
+    };
 
 app.get('/api/evaluate-answer', async (req, res) => {
     const { question, answer } = req.query;
