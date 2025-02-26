@@ -26,17 +26,17 @@ const questions = [
   },
 ];
 
-const QuizAnswers = ({ isCorrect, correctAnswer, onNext }) => {
+const QuizAnswers = ({ evaluation, explanation, onNext }) => {
   return (
     <div className={defaultPadding}>
       <h2 className="text-left text-4xl mb-4 mt-20">Evaluation</h2>
       <div className="flex m-1">
         <div className="w-1/2">
-          <p>{isCorrect ? "Correct!" : "Incorrect"}</p>
+          <p>{evaluation}</p>
         </div>
         <div className="w-1/2 whitespace-no-wrap">
           <p>
-            Answer: <span className="font-bold">{correctAnswer}</span>
+            Explanation: <span className="font-bold">{explanation}</span>
           </p>
         </div>
       </div>
@@ -82,13 +82,13 @@ const questions = location.state?.questions || [];
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answerOn, setAnswerOn] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
-  const [correctAnswer, setCorrectAnswer] = useState("");
-  const [isCorrect, setIsCorrect] = useState(null);
+  const [evaluation, setEvaluation] = useState("");
+  const [explanation, setExplanation] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [emptyAnswer, setEmptyAnswer] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
 
-  const handleAnswer = (e) => {
+  const handleAnswer = async (e) => {
     e.preventDefault();
 
     if (!userAnswer) {
@@ -96,25 +96,39 @@ const questions = location.state?.questions || [];
       return;
     }
 
-    setAnswerOn(true);
+    setSubmitting(true);
 
-      const correct =
-        userAnswer.trim().toLowerCase() ===
-        questions[currentQuestion].answer.toLowerCase();
-      setIsCorrect(correct);
-      setCorrectAnswer(questions[currentQuestion].answer);
-      setEmptyAnswer(false);
-      setSubmitting(true);
-  };
+    try {
+        // Call the evaluation endpoint with the current question and user's answer
+        const response = await fetch(
+          `http://localhost:3000/api/evaluate-answer?question=${encodeURIComponent(
+            questions[currentQuestion].question
+          )}&answer=${encodeURIComponent(userAnswer)}`,
+          {
+            method: "GET",
+          }
+        );
+        const evaluationData = await response.json();
+        // Expecting evaluationData to contain "evaluation" and "explanation" keys
+        setEvaluation(evaluationData.evaluation);
+        setExplanation(evaluationData.explanation);
+        setEmptyAnswer(false);
+        setAnswerOn(true);
+      } catch (error) {
+        console.error("Error evaluating answer:", error);
+      } finally {
+        setSubmitting(false);
+      }
+    };
 
   const handleNextQuestion = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
       setAnswerOn(false);
-      setUserAnswer("");
-      setIsCorrect(null);
+      setUserAnswer("")
+      setEvaluation("");
+      setExplanation("");
       setEmptyAnswer(false);
-      setCorrectAnswer("");
       setSubmitting(false);
     } else {
       setQuizCompleted(true);
@@ -150,9 +164,9 @@ const questions = location.state?.questions || [];
 
       {answerOn && (
         <QuizAnswers
-          correctAnswer={correctAnswer}
+          evaluation={evaluation}
+          explanation={explanation}
           onNext={handleNextQuestion}
-          isCorrect={isCorrect}
         />
       )}
     </>
