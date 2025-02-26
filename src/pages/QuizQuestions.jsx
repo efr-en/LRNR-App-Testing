@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const h2Heading = "text-left text-4xl mb-4";
 const defaultPadding = "p-4";
@@ -137,9 +138,18 @@ const questions = location.state?.questions || [];
 
   if (quizCompleted) {
     return (
+        <>
       <div className={defaultPadding}>
         <h1 className="text-center text-5xl p-8">Quiz Completed!</h1>
       </div>
+      <div className="flex justify-center mt-6">
+       <Link to="/quiz-results">
+       <button className="bg-teal-500 hover:bg-teal-600 text-white font-medium py-2 px-6 rounded transition-colors">
+       Check your results
+       </button>
+       </Link>
+       </div>
+       </>
     );
   }
 
