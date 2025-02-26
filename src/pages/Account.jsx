@@ -3,19 +3,6 @@ import React from "react";
 export default function AccountPage() {
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gray-100">
-      {/* Navbar */}
-      <nav className="bg-blue-500 p-4 flex justify-between text-white">
-        <h1 className="text-lg font-bold">Lrnr</h1>
-        <div className="space-x-4">
-          <a href="#" className="hover:underline">
-            Account
-          </a>
-          <a href="#" className="hover:underline">
-            Quiz Generation
-          </a>
-        </div>
-      </nav>
-
       {/* Main Content */}
       <div className="flex-grow px-6 md:px-12 py-12 text-center">
         <h2 className="text-4xl font-bold text-teal-600">Account</h2>
@@ -45,30 +32,6 @@ export default function AccountPage() {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="bg-blue-500 text-white p-6 text-center">
-        <p className="max-w-3xl mx-auto">
-          Embrace the power of our app and unlock the secrets of the universe,
-          one quiz at a time. As I always say, 'Yesterday is history, tomorrow
-          is a mystery, but today is a gift. That is why it is called the
-          present.'
-        </p>
-        <div className="mt-4 text-sm">
-          Made by <span className="font-bold">Materialize</span>
-        </div>
-        <div className="mt-2 space-x-4">
-          <a href="#" className="hover:underline">
-            Home
-          </a>
-          <a href="#" className="hover:underline">
-            Quiz Generator
-          </a>
-          <a href="#" className="hover:underline">
-            Account
-          </a>
-        </div>
-      </footer>
     </div>
   );
 }
