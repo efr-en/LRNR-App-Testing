@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Quiz = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,8 @@ const Quiz = () => {
     styleOfQuestions: "normal",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -16,9 +19,26 @@ const Quiz = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
+
+    try {
+        const response = await fetch('http://localhost:3000/api/generate-questions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+        console.log("Generated Questions:", data.questions)
+
+    navigate("/quiz-questions", { state: { questions: data.questions } });
+    } catch (error) {
+        console.error("Error generating quiz:", error);
+    }
   };
 
   return (
