@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -33,7 +32,6 @@ function Footer() {
             </ul>
           </div>
         </div>
-        <p className="mt-6 ml4 self-start">&copy;Made by Tailwind</p>
       </footer>
     </>
   );
