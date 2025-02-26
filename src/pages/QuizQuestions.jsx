@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const h2Heading = "text-left text-4xl mb-4";
 const defaultPadding = "p-4";
@@ -75,6 +76,9 @@ const QuizForm = ({ userAnswer, setUserAnswer, handleAnswer, submitting, emptyAn
 };
 
 const QuizQuestions = () => {
+const location = useLocation();
+const questions = location.state?.questions || [];
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answerOn, setAnswerOn] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
