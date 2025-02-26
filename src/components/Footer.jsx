@@ -16,17 +16,17 @@ function Footer() {
             <ul className="flex flex-col space-y-2">
               <p className="text-white text-lg">Links</p>
               <li>
-                <a href="#" className="hover:underline">
+                <a href="/" className="hover:underline">
                   Home
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:underline">
+                <a href="/quiz" className="hover:underline">
                   Quiz Generator
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:underline">
+                <a href="/account" className="hover:underline">
                   Account
                 </a>
               </li>

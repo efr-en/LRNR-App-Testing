@@ -9,12 +9,12 @@ function NavBar() {
         <div className="mr-4">
           <ul className="flex space-x-6">
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/account" className="hover:underline">
                 Account
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a href="/quiz" className="hover:underline">
                 Quiz Generation
               </a>
             </li>
