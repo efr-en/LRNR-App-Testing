@@ -142,11 +142,13 @@ const questions = location.state?.questions || [];
       <div className={defaultPadding}>
         <h1 className="text-center text-5xl p-8">Quiz Completed!</h1>
       </div>
+      <div className="flex justify-center mt-6">
        <Link to="/quiz-results">
-       <button className="mt-6 bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 uppercase">
+       <button className="bg-teal-500 hover:bg-teal-600 text-white font-medium py-2 px-6 rounded transition-colors">
        Check your results
        </button>
        </Link>
+       </div>
        </>
     );
   }

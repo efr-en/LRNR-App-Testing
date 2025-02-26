@@ -2,7 +2,7 @@ import React from "react";
 
 export default function AccountPage() {
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-gray-100">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
       {/* Main Content */}
       <div className="flex-grow px-6 md:px-12 py-12 text-center">
         <h2 className="text-4xl font-bold text-teal-600">Account</h2>
